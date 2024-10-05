@@ -16,11 +16,16 @@ const fastify = require('fastify')({
     logger: envToLogger['development'] ?? true // defaults to true if no entry matches in the map
 })
 
-const jamesRoute = require('./routes/james');
+const jamesRoute = require('./routes/james_portfolio');
 
 // Declare a route
 fastify.get('/', function (request, reply) {
     reply.send(200)
+})
+
+fastify.get('/robots.txt', function (request, reply) {
+    reply.send(`User-agent: *
+Disallow: /`)
 })
 
 fastify.register(jamesRoute, {prefix:'james_portfolio'})

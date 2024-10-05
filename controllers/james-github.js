@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config();
 const GH_TOKEN = process.env.GITHUB;
 const axios = require('axios');
-const FILE_SERVER = "https://test.jackcooper.me/"
+const FILE_SERVER = "https://jamesportfolio.jackcooper.me/"
 const { fetchItchGameData } = require('itchio-metadata');
 
 
@@ -34,7 +34,7 @@ async function getRepoContents() {
         try {
             var config = {
                 method: 'get',
-                url: 'https://api.github.com/repos/jackcooper04/james-projects/git/trees/master?recursive=1',
+                url: 'https://api.github.com/repos/jackcooper04/james-portfolio-files/git/trees/master?recursive=1',
                 headers: {
                     'Authorization': 'Bearer ' + GH_TOKEN
                 }
