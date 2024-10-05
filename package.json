@@ -12,6 +12,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
-    "itchio-metadata": "^1.0.4"
+    "itchio-metadata": "^1.0.4",
+    "pino-pretty": "^11.2.2"
   }
 }
