@@ -127,7 +127,7 @@ async function getRepoContents() {
                             const fileDataBuffer = new Buffer.from(fileData, 'base64').toString();
                             if (fileDataBuffer.includes("github")) {
                                 gameObj.itchio = fileDataBuffer; 
-                                gameObj.itchData.cover_image = `https://github.com/${fileDataBuffer.split("/")[3]}`;
+                                gameObj.itchData.cover_image = `https://github.com/${fileDataBuffer.split("/")[3]}.png`;
                                 gameObj.itchData.title = fileDataBuffer.split("/")[4]
                             } else {
                                 var splitURL = fileDataBuffer.split("/");
