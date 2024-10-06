@@ -135,7 +135,7 @@ async function getRepoContents() {
                                 var gameName = splitURL[3]
                                 const gameData = await fetchGData(gameName,userURL);
                                 gameObj.itchData = gameData;
-                                gameObj.tags = [...gameObj.tags, ...gameData.tags];
+                                gameObj.tags = [...gameObj.tags];
                                 for (tIdx in gameData.tags) {
                                     if (!tags.includes(gameData.tags[tIdx])) {
                                         tags.push(gameData.tags[tIdx])
