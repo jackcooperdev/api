@@ -17,6 +17,7 @@ const fastify = require('fastify')({
 })
 
 const jamesRoute = require('./routes/james_portfolio');
+const hackathonRoute = require('./routes/hackathon');
 
 // Declare a route
 fastify.get('/', function (request, reply) {
@@ -27,8 +28,10 @@ fastify.get('/robots.txt', function (request, reply) {
     reply.send(`User-agent: *
 Disallow: /`)
 })
+fastify.register(require('./db/hackathon'));
+fastify.register(jamesRoute, {prefix:'james_portfolio'});
+fastify.register(hackathonRoute, {prefix:'hackathon'});
 
-fastify.register(jamesRoute, {prefix:'james_portfolio'})
 
 // Run the server!
 fastify.listen({ port: 4000 }, function (err, address) {
