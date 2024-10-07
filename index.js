@@ -15,7 +15,7 @@ const envToLogger = {
 const fastify = require('fastify')({
     logger: envToLogger['development'] ?? true // defaults to true if no entry matches in the map
 })
-
+const cors = require('@fastify/cors')
 const jamesRoute = require('./routes/james_portfolio');
 const hackathonRoute = require('./routes/hackathon');
 
@@ -27,6 +27,9 @@ fastify.get('/', function (request, reply) {
 fastify.get('/robots.txt', function (request, reply) {
     reply.send(`User-agent: *
 Disallow: /`)
+})
+fastify.register(cors, { 
+  // put your options here
 })
 fastify.register(require('./db/hackathon'));
 fastify.register(jamesRoute, {prefix:'james_portfolio'});
