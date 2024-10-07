@@ -8,7 +8,7 @@ const dotenv = require('dotenv').config();
  */
 async function dbConnector (fastify, options) {
   fastify.register(require('@fastify/mongodb'), {
-    url: `mongodb+srv://cauldron_server:${process.env.DB_TOKEN}.mongodb.net/hackathon`
+    url: `mongodb+srv://cauldron_server:${process.env.DB_TOKEN}@cauldronmc.ye55cg3.mongodb.net/hackathon`
   })
 }
 

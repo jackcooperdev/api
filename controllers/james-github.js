@@ -34,7 +34,7 @@ async function getRepoContents() {
         try {
             var config = {
                 method: 'get',
-                url: 'https://api.github.com/repos/jackcooper04/james-portfolio-files/git/trees/master?recursive=1',
+                url: 'https://api.github.com/repos/jackcooper04/james-test/git/trees/master?recursive=1',
                 headers: {
                     'Authorization': 'Bearer ' + GH_TOKEN
                 }
@@ -48,11 +48,12 @@ async function getRepoContents() {
 
             // Sent
             var gameMeta = new Array();
+            var assets = new Array();
             for (idx in fileTree) {
                 var splitPath = fileTree[idx].path.split("/");
 
                 // Exclude CNAME
-                if (splitPath[0] != 'CNAME') {
+                if (splitPath[0] != 'CNAME' && !splitPath[0] != 'assets_reserved') {
                     // Collect Tag Names
                     // if (!tags.includes(splitPath[0])) {
                     //     tags.push(splitPath[0])
@@ -102,7 +103,7 @@ async function getRepoContents() {
                             const fileData = (await axios(config_itchFile)).data.content.replace(/(\r\n|\n|\r)/gm, "");
                             const fileDataBuffer = new Buffer.from(fileData, 'base64').toString();
                             console.log(fileDataBuffer.split(","))
-                            gameObj.tags = [...gameObj.tags, ...fileDataBuffer.split(",")];
+                            gameObj.tags = [...fileDataBuffer.split(",")];
 
                             var splitTags = fileDataBuffer.split(",");
 
@@ -136,11 +137,11 @@ async function getRepoContents() {
                                 const gameData = await fetchGData(gameName,userURL);
                                 gameObj.itchData = gameData;
                                 gameObj.tags = [...gameObj.tags];
-                                for (tIdx in gameData.tags) {
-                                    if (!tags.includes(gameData.tags[tIdx])) {
-                                        tags.push(gameData.tags[tIdx])
-                                    };
-                                }
+                                // for (tIdx in gameData.tags) {
+                                //     if (!tags.includes(gameData.tags[tIdx])) {
+                                //         tags.push(gameData.tags[tIdx])
+                                //     };
+                                // }
                                 gameObj.itchio = fileDataBuffer;    
                             }
                           
@@ -168,8 +169,9 @@ async function getRepoContents() {
                 }
             };
             var returnObj = {
-                games: gameMeta,
-                tags: tags
+                // games: gameMeta,
+                tags: tags,
+                assets:assets
             };
             resolve(returnObj);
         } catch (err) {
