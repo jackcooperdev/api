@@ -13,7 +13,7 @@ const envToLogger = {
   }
 
 const fastify = require('fastify')({
-    logger: envToLogger['development'] ?? true // defaults to true if no entry matches in the map
+    logger: envToLogger['development'] ?? true 
 })
 const cors = require('@fastify/cors')
 const jamesRoute = require('./routes/james_portfolio');
