@@ -200,7 +200,25 @@ async function processBlog() {
         resolve(posts);
     })
 
+};
+
+async function processRecomendations() {
+    return new Promise(async (resolve, reject) => {
+        var config = {
+            method:'get',
+            url:`${FILE_SERVER}/assets_reserved/recommendations/recomendations.json`
+        };
+
+        const response = await axios(config);
+        var posts = response.data;
+        for (idx in posts) {
+            converter = new showdown.Converter(),
+            posts[idx].message = converter.makeHtml(posts[idx].message).replace(/\n/g, "<br />");
+        };
+        resolve(posts);
+    })
+
 }
 
-module.exports = {getRepoContents,processBlog};
+module.exports = {getRepoContents,processBlog, processRecomendations};
 

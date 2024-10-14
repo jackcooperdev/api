@@ -12,6 +12,11 @@ async function routes(fastify, options) {
         const posts = await getRepoContents.processBlog();
         return posts;
     })
+
+    fastify.get('/recommendations', async (request, reply) => {
+        const posts = await getRepoContents.processRecomendations();
+        return posts;
+    })
     
 }
 
