@@ -13,7 +13,7 @@ const envToLogger = {
   }
 
 const fastify = require('fastify')({
-    logger: envToLogger['development'] ?? true //
+    // logger: envToLogger['development'] ?? true //
 })
 const cors = require('@fastify/cors')
 const jamesRoute = require('./routes/james_portfolio');

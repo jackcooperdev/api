@@ -1,10 +1,10 @@
 const dotenv = require('dotenv').config();
 const GH_TOKEN = process.env.GITHUB;
 const axios = require('axios');
-const FILE_SERVER = "https://jamesportfolio.jackcooper.me/"
+const FILE_SERVER = "https://jamesportfolio.jackcooper.me/";
 const { fetchItchGameData } = require('itchio-metadata');
-
-
+var showdown  = require('showdown')
+const fs = require('fs')
 async function fetchGData(gameTitle,author) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -34,7 +34,7 @@ async function getRepoContents() {
         try {
             var config = {
                 method: 'get',
-                url: 'https://api.github.com/repos/jackcooper04/james-test/git/trees/master?recursive=1',
+                url: 'https://api.github.com/repos/jackcooper04/james-portfolio-files/git/trees/master?recursive=1',
                 headers: {
                     'Authorization': 'Bearer ' + GH_TOKEN
                 }
@@ -60,7 +60,7 @@ async function getRepoContents() {
                     // };
                     if (splitPath.length > 1 && splitPath[0] != '.gitkeep' && !games.includes(splitPath[0])) {
                         // Handle Game
-                        console.log(splitPath)
+                        console.log('GAME')
                         games.push(splitPath[0]);
 
                         var gameObj = {
@@ -89,7 +89,7 @@ async function getRepoContents() {
                             gameObj.hasGame = true;
                             gameObj.gameURL = `${FILE_SERVER}${splitPath[0]}`
                         }
-
+                        console.log(itchioFile)
 
                         if (hasAdditTags.length > 0) {
                             //Extract URL
@@ -113,8 +113,6 @@ async function getRepoContents() {
                                 };
                             }
                         };
-
-
                         if (itchioFile.length > 0) {
                             //Extract URL
                             var config_itchFile = {
@@ -160,8 +158,6 @@ async function getRepoContents() {
                             const fileDataBuffer = new Buffer.from(fileData, 'base64').toString();
                             gameObj.desc = fileDataBuffer;
                         };
-
-
                         gameMeta.push(gameObj);
                     }
 
@@ -169,7 +165,7 @@ async function getRepoContents() {
                 }
             };
             var returnObj = {
-                // games: gameMeta,
+                games: gameMeta,
                 tags: tags,
                 assets:assets
             };
@@ -179,7 +175,32 @@ async function getRepoContents() {
         }
 
     })
+};
+
+
+async function processBlog() {
+    return new Promise(async (resolve, reject) => {
+        var config = {
+            method:'get',
+            url:`${FILE_SERVER}/assets_reserved/blog/posts.json`
+        };
+        var posterConfig = {
+            method:'get',
+            url:`${FILE_SERVER}/assets_reserved/blog/users.json`
+        };
+        const response = await axios(config);
+        const uResponse = await axios(posterConfig);
+        var users = uResponse.data;
+        var posts = response.data;
+        for (idx in posts) {
+            converter = new showdown.Converter(),
+            posts[idx].author = users[posts[idx].author];
+            posts[idx].message = converter.makeHtml(posts[idx].message).replace(/\n/g, "<br />");
+        };
+        resolve(posts);
+    })
+
 }
 
-module.exports = getRepoContents;
+module.exports = {getRepoContents,processBlog};
 
