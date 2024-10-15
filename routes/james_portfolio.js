@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 async function routes(fastify, options) {
     fastify.get('/UNHfPGxYhN4sb60eEcuc', async (request, reply) => {
-        const data = await getRepoContents();
+        const data = await getRepoContents.getRepoContents();
         return data
     })
 
