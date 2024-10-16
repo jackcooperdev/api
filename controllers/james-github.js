@@ -53,7 +53,7 @@ async function getRepoContents() {
                 var splitPath = fileTree[idx].path.split("/");
 
                 // Exclude CNAME
-                if (splitPath[0] != 'CNAME' && !splitPath[0] != 'assets_reserved') {
+                if (splitPath[0] != 'CNAME' && splitPath[0] != 'assets_reserved') {
                     // Collect Tag Names
                     // if (!tags.includes(splitPath[0])) {
                     //     tags.push(splitPath[0])
