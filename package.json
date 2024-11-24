@@ -4,6 +4,7 @@
   "description": "API's for various projects",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jack Cooper",
@@ -21,5 +22,8 @@
     "itchio-metadata": "^1.0.4",
     "pino-pretty": "^11.2.2",
     "showdown": "^2.1.0"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
