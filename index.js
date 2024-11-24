@@ -35,9 +35,9 @@ fastify.register(require('./db/hackathon'));
 fastify.register(jamesRoute, {prefix:'james_portfolio'});
 fastify.register(hackathonRoute, {prefix:'hackathon'});
 
-
+let port = process.env.PORT || 3000
 // Run the server!
-fastify.listen({ port: 3000 }, function (err, address) {
+fastify.listen({ port: port }, function (err, address) {
     if (err) {
         fastify.log.error(err)
         process.exit(1)
