@@ -29,6 +29,8 @@ fastify.get('/robots.txt', function (request, reply) {
 Disallow: /`)
 })
 fastify.register(cors, { 
+  origin:["https://jneville.uk"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   // put your options here
 })
 fastify.register(require('./db/hackathon'));
