@@ -16,7 +16,6 @@ const fastify = require('fastify')({
     // logger: envToLogger['development'] ?? true //
 })
 const cors = require('@fastify/cors')
-const jamesRoute = require('./routes/james_portfolio');
 const hackathonRoute = require('./routes/hackathon');
 
 // Declare a route
@@ -34,7 +33,6 @@ fastify.register(cors, {
   // put your options here
 })
 fastify.register(require('./db/hackathon'));
-fastify.register(jamesRoute, {prefix:'james_portfolio'});
 fastify.register(hackathonRoute, {prefix:'hackathon'});
 
 
