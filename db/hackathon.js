@@ -1,5 +1,4 @@
 const fastifyPlugin = require('fastify-plugin')
-const dotenv = require('dotenv').config();
 
 /**
  * Connects to a MongoDB database
