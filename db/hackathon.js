@@ -3,11 +3,10 @@ const fastifyPlugin = require('fastify-plugin')
 /**
  * Connects to a MongoDB database
  * @param {FastifyInstance} fastify Encapsulated Fastify Instance
- * @param {Object} options plugin options, refer to https://fastify.dev/docs/latest/Reference/Plugins/#plugin-options
  */
-async function dbConnector (fastify, options) {
+async function dbConnector (fastify) {
   fastify.register(require('@fastify/mongodb'), {
-    url: `mongodb+srv://cauldron_server:${process.env.DB_TOKEN}@cauldronmc.ye55cg3.mongodb.net/hackathon`
+    url: `mongodb+srv://api_access:${process.env.DB_TOKEN}@${process.env.DB_ADDRESS}/hackathon`
   })
 }
 
