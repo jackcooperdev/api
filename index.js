@@ -1,17 +1,17 @@
 const fastify = require('fastify')()
 const hackathonRoute = require('./routes/hackathon');
-
+const mariokartRoute = require('./routes/mariokart');
 // Declare a route
 fastify.get('/', function (request, reply) {
     reply.send(200)
 })
 
 fastify.get('/robots.txt', function (request, reply) {
-    reply.send(`User-agent: *
-Disallow: /`)
+    reply.send(`User-agent: * \nDisallow: /`)
 })
-fastify.register(require('./db/hackathon'));
-fastify.register(hackathonRoute, {prefix:'hackathon'});
+fastify.register(require('./db/main'));
+fastify.register(hackathonRoute, {prefix: 'hackathon'});
+fastify.register(mariokartRoute, {prefix: 'mariokart'});
 
 
 // Run the server!
