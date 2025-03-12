@@ -1,35 +1,29 @@
-async function routes(fastify, options) {
-    const bikes = fastify.mongo.db.collection('bike_stations')
-    const bus = fastify.mongo.db.collection('bus_stops')
-    const rail = fastify.mongo.db.collection('rail_stations')
+const express = require('express');
+const bike = require('../models/hackathon/bike');
+const bus = require('../models/hackathon/bus');
+const rail = require('../models/hackathon/rail');
+const router = express.Router();
+
+router.get('/bike', async (req, res) => {
+    const data = await bike.find({},undefined,undefined);
+
+    res.send(data)
+})
+
+router.get('/bus', async (req, res) => {
+    const data = await bus.find({},undefined,undefined);
+
+    res.send(data)
+})
 
 
-    fastify.get('/bike', async (request, reply) => {
-        const result = await bikes.find().toArray()
-        if (result.length === 0) {
-            throw new Error('No documents found')
-        }
-        return result
-    });
+router.get('/rail', async (req, res) => {
+    const data = await rail.find({},undefined,undefined);
 
-    
-    fastify.get('/bus', async (request, reply) => {
-        const result = await bus.find().toArray()
-        if (result.length === 0) {
-            throw new Error('No documents found')
-        }
-        return result
-    });
-
-    
-    fastify.get('/rail', async (request, reply) => {
-        const result = await rail.find().toArray()
-        if (result.length === 0) {
-            throw new Error('No documents found')
-        }
-        return result
-    });
-}
+    res.send(data)
+})
 
 
-module.exports = routes;
+
+
+module.exports = router;
